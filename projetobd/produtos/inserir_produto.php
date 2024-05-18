@@ -4,7 +4,7 @@
 ?>
 
     <h3> Inserir Produto </h3>
-    <form>
+    <form action="" method="POST">
         <div class="row">
             <label for="nome" class="form-label">Informe o nome</label>
             <input type ="text" class="form-control" name="nome"> 
@@ -40,4 +40,17 @@
 
 
 <?php
+    if ($_POST){
+        $nome = $_POST['nome'];
+        $descricao = $_POST['descricao'];
+        $valor = $_POST['valor'];
+        $categoria = $_POST['categoria'];
+        if ($nome !="" && $descricao !="" && $valor !="" && $categoria !=""){
+            inserirProduto($nome,$descricao,$valor,$categoria);
+            echo "Registro inserido com sucesso";
+        } 
+        else{
+            echo "Preencha todos os campos";
+        }
+    }
     require_once("../rodape.html");

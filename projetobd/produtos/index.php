@@ -16,11 +16,15 @@
             </tr>
         </thead>
         </tbody>
+            <?php 
+                $linhas = retornarProdutos();
+                while($l = $linhas->fetch(PDO::FETCH_ASSOC)){
+            ?>
             <tr>
-                <td>Persuasão</td>
-                <td>Livro de Jane Austen</td>
-                <td>R$10,00</td>
-                <td>Livros</td>
+                <td><?=$l['NOME'] ?></td>
+                <td><?=$l['DESCRICAO'] ?></td>
+                <td><?=$l['VALOR'] ?></td>
+                <td><?=$l['CATEGORIA'] ?></td>
                 <td>
                     <a href="alterar_produto.php" class="btn btn-warning">
                         Alterar
@@ -30,34 +34,9 @@
                     </a>
                 </td> 
             </tr>
-            <tr>
-                <td>Espagueti Liane</td>
-                <td>Macarrão de Semolina</td>
-                <td>R$3,00</td>
-                <td>Perecíveis</td>
-                <td>
-                    <a href="alterar_produto.php" class="btn btn-warning">
-                        Alterar
-                    </a>
-                    <a href="excluir_produto.php" class="btn btn-danger">
-                        Excluir
-                    </a>
-                </td> 
-            </tr>  
-            <tr>
-                <td>Logitec Ultralight</td>
-                <td>Mouse Gamer</td>
-                <td>R$599,00</td>
-                <td>Eletronico</td>
-                <td>
-                    <a href="alterar_produto.php" class="btn btn-warning">
-                        Alterar
-                    </a>
-                    <a href="excluir_produto.php" class="btn btn-danger">
-                        Excluir
-                    </a>
-                </td> 
-            </tr>                      
+            <?php
+                }
+            ?>                    
         </tbody>
     </table>
 
