@@ -1,5 +1,5 @@
 <?php
-    require_once("../cabecalho.html");
+    require_once("../cabecalho.php");
 
 ?>
 
@@ -21,9 +21,12 @@
         <div class="row">        
             <label for="categoria" class="form-label mt-3"> Selecione a categoria </label>
             <select class="form-select" name="categoria">
-                <option value="1"> Livros </option>
-                <option value="2"> Perecivel 1</option>
-                <option value="3"> Eletronico 1</option>
+                <?php
+                    $linhas = retornarCategorias();
+                    while ($l = $linhas->fetch(PDO::FETCH_ASSOC)){
+                        echo "<option value='{$l['id']}'>{$l['descricao']}</option>";
+                    }
+                ?>
             </select>      
         </div>
         <div class="row"> 
