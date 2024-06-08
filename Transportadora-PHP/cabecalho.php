@@ -17,8 +17,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="/produtos/index.php">Produtos</a>
+              <a class="nav-link" href="/Viagem/index.php">Viagem</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Veiculo/index.php">Veiculo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Motorista/index.php">Motorista</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Cliente/index.php">Cliente</a>
+            </li>            
           </ul>
         </div>
       </div>
