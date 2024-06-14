@@ -2,11 +2,11 @@
     require_once("../cabecalho.php");
     session_start();
     if (isset($_GET['COD_MOTORISTA'])) {
-        $id = $_GET['COD_MOTORISTA'];
+        $COD_MOTORISTA = $_GET['COD_MOTORISTA'];
         $_SESSION['COD_MOTORISTA'] = $COD_MOTORISTA;
     } 
     if ($_POST){
-        $id = $_SESSION['COD_MOTORISTA'];
+        $COD_MOTORISTA = $_SESSION['COD_MOTORISTA'];
         if(excluirMotorista($_SESSION['COD_MOTORISTA']))
             header('Location: index.php');
         else

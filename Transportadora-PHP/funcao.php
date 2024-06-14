@@ -129,7 +129,7 @@
 
     function inserirCliente($nome, $telefone, $email){
         try{ 
-            $sql = "INSERT INTO MOTORISTA (NOME, TELEFONE, EMAIL)VALUES (:nome, :telefone, :email)";
+            $sql = "INSERT INTO CLIENTE (NOME, TELEFONE, EMAIL)VALUES (:nome, :telefone, :email)";
             $conexao = conectarBanco();
             $stmt = $conexao->prepare($sql);
             $stmt->bindValue(":nome", $nome);

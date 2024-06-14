@@ -27,8 +27,8 @@
                 <td><?= $l['MODELO'] ?></td>
                 <td><?= $l['ANO'] ?></td>
                 <td>
-                    <a href="alterar_veiculo.php?id=<?= $l['id'] ?>" class="btn btn-warning"> Alterar </a>
-                    <a href="excluir_veiculo..php?id=<?= $l['id'] ?>" class="btn btn-danger"> Excluir </a>
+                    <a href="alterar_veiculo.php?id=<?= $l['COD_VEICULO'] ?>" class="btn btn-warning"> Alterar </a>
+                    <a href="excluir_veiculo..php?id=<?= $l['COD_VEICULO'] ?>" class="btn btn-danger"> Excluir </a>
                 </td>
             </tr>
             <?php

@@ -31,8 +31,8 @@
                 <td><?= $l['VEICULO'] ?></td>
                 <td><?= $l['CLIENTE'] ?></td>                
                 <td>
-                    <a href="alterar_viagem.php?id=<?= $l['id'] ?>" class="btn btn-warning"> Alterar </a>
-                    <a href="excluir_viagem.php?id=<?= $l['id'] ?>" class="btn btn-danger"> Excluir </a>
+                    <a href="alterar_viagem.php?id=<?= $l['COD_VIAGEM'] ?>" class="btn btn-warning"> Alterar </a>
+                    <a href="excluir_viagem.php?id=<?= $l['COD_VIAGEM'] ?>" class="btn btn-danger"> Excluir </a>
                 </td>
             </tr>
             <?php
