@@ -10,16 +10,32 @@
     /*Existe uma relação da tabela categoria com a tabela produto. Portanto, preciso buscar todas as
     categorias do banco de dados para poder relacionar com os registros de produtos na minha aplicação
     A função abaixo faz essa busca e retorna todos os registros de categorias*/
-    function retornarCategorias(){
+    function retornarMotorista(){
         try {
-            //Defino uma variável para declarar o SQL a ser executado
-            $sql = "SELECT * FROM categoria";   
-            //Realizo a conexão com o banco de dados
+            $sql = "SELECT * FROM MOTORISTA";   
             $conexao = conectarBanco();
-            //Executo a consulta, retornando o seu resultado
             return $conexao->query($sql);
         } catch (Exception $e) {
-            //Caso aconteça algum erro, retorno o valor 0
+            return 0;
+        }
+    }
+
+    function retornarVeiculo(){
+        try {
+            $sql = "SELECT * FROM VEICULO";   
+            $conexao = conectarBanco();
+            return $conexao->query($sql);
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+
+    function retornarCliente(){
+        try {
+            $sql = "SELECT * FROM CLIENTE";   
+            $conexao = conectarBanco();
+            return $conexao->query($sql);
+        } catch (Exception $e) {
             return 0;
         }
     }
@@ -29,103 +45,296 @@
     para o usuário, não apenas o seu código*/
     function retornarProdutos(){
         try {
-            //Defino uma variável para declarar o SQL a ser executado
             $sql = "SELECT p.*, c.descricao as categoria FROM produto p
                     INNER JOIN categoria c ON c.id = p.categoria_id";
-            //Realizo a conexão com o banco de dados
             $conexao = conectarBanco();
-            //Executo a consulta, retornando o seu resultado
             return $conexao->query($sql);
         } catch (Exception $e) {
-            //Caso aconteça algum erro, retorno o valor 0
             return 0;
         }
     }
 
     //Função que realiza a inserção de um produto
-    function inserirProduto($nome, $descricao, $valor, $categoria){
+    function inserirMotorista($nome, $num_carteira, $celular){
         try{ 
-            //Defino uma variável para declarar o SQL a ser executado
-            $sql = "INSERT INTO produto (nome, descricao, valor, categoria_id)VALUES (:nome, :descricao, :valor, :categoria)";
-            //Realizo a conexão com o banco de dados
+            $sql = "INSERT INTO MOTORISTA (NOME, NUM_CARTEIRA, CELULAR)VALUES (:nome, :num_carteira, :celular)";
             $conexao = conectarBanco();
-            //Inicio a preparação do SQL para poder substituir os APELIDOS pelos valores passados por parâmetro
             $stmt = $conexao->prepare($sql);
             $stmt->bindValue(":nome", $nome);
-            $stmt->bindValue(":descricao", $descricao);
-            $stmt->bindValue(":valor", $valor);
-            $stmt->bindValue(":categoria", $categoria);
-            //Executo a consulta, retornando o seu resultado
+            $stmt->bindValue(":num_carteira", $num_carteira);
+            $stmt->bindValue(":celular", $celular);
             return $stmt->execute();
         } catch (Exception $e){
-            //Caso aconteça algum erro, retorno o valor 0
             return 0;
         }
     }
 
     //Para poder alterar ou excluir um registro, precisamos consultar o registro pela sua chave primária (id)
-    function consultarProdutoId($id){
+    function consultarMotoristaID($cod_motorista){
         try{ 
-            //Defino uma variável para declarar o SQL a ser executado
-            $sql = "SELECT * FROM produto WHERE id = :id";
-            //Realizo a conexão com o banco de dados
+            $sql = "SELECT * FROM MOTORISTA WHERE cod_motorista = :cod_motorista";
             $conexao = conectarBanco();
-            //Inicio a preparação do SQL para poder substituir os APELIDOS pelos valores passados por parâmetro
             $stmt = $conexao->prepare($sql);
-            $stmt->bindValue(":id", $id);
+            $stmt->bindValue(":cod_motorista", $cod_motorista);
             //Executo a consulta
             $stmt->execute();
-            //Retorno o registro já em formato de ARRAY
             return $stmt->fetch();
         } catch (Exception $e){
-            //Caso aconteça algum erro, retorno o valor 0
             return 0;
         }
     }
-
     //Função que realiza a alteração de um produto
-    function alterarProduto($nome, $descricao, $valor, $categoria, $id){
+    function alterarMotorista($nome, $num_carteira, $celular, $cod_motorista){
         try{ 
-            //Defino uma variável para declarar o SQL a ser executado
-            $sql = "UPDATE produto SET nome = :nome, descricao = :descricao, valor = :valor, categoria_id = :categoria WHERE id = :id";
-            //Realizo a conexão com o banco de dados
+            $sql = "UPDATE MOTORISTA SET nome = :nome, num_carteira = :num_carteira, celular = :celular WHERE cod_motorista = :cod_motorista";
             $conexao = conectarBanco();
-            //Inicio a preparação do SQL para poder substituir os APELIDOS pelos valores passados por parâmetro
             $stmt = $conexao->prepare($sql);
             $stmt->bindValue(":nome", $nome);
-            $stmt->bindValue(":descricao", $descricao);
-            $stmt->bindValue(":valor", $valor);
-            $stmt->bindValue(":categoria", $categoria);
-            $stmt->bindValue(":id", $id);
-            //Executo a consulta, retornando o seu resultado
+            $stmt->bindValue(":descricao", $num_carteira);
+            $stmt->bindValue(":celular", $celular);
+            $stmt->bindValue(":cod_motorista", $cod_motorista);
             return $stmt->execute();
         } catch (Exception $e){
-            //Caso aconteça algum erro, retorno o valor 0
             return 0;
         }
     }
 
     //Função que realiza a exclusão de um produto
-    function excluirProduto($id){
+    function excluirMotorista($cod_motorista){
         try{ 
-            //Defino uma variável para declarar o SQL a ser executado
-            $sql = "DELETE FROM produto WHERE id = :id";
-            //Realizo a conexão com o banco de dados
+            $sql = "DELETE FROM produto WHERE cod_motorista = :cod_motorista";
             $conexao = conectarBanco();
-            //Inicio a preparação do SQL para poder substituir os APELIDOS pelos valores passados por parâmetro
             $stmt = $conexao->prepare($sql);
-            $stmt->bindValue(":id", $id);
-            //Executo a consulta, retornando o seu resultado
+            $stmt->bindValue(":cod_motorista", $cod_motorista);
             return $stmt->execute();
         } catch (Exception $e){
-            //Caso aconteça algum erro, retorno o valor 0
             return 0;
         }
     }
 
+    //CLIENTE
+    function consultarClienteID($cod_cliente){
+        try{ 
+            $sql = "SELECT * FROM MOTORISTA WHERE cod_cliente = :cod_cliente";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":cod_cliente", $cod_cliente);
+            //Executo a consulta
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
 
+    function inserirCliente($nome, $telefone, $email){
+        try{ 
+            $sql = "INSERT INTO MOTORISTA (NOME, TELEFONE, EMAIL)VALUES (:nome, :telefone, :email)";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":nome", $nome);
+            $stmt->bindValue(":telefone", $telefone);
+            $stmt->bindValue(":email", $email);
+            return $stmt->execute();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
 
+    function consultarCliente($cod_cliente){
+        try{ 
+            $sql = "SELECT * FROM CLIENTE WHERE cod_cliente = :cod_cliente";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":cod_cliente", $cod_cliente);
+            //Executo a consulta
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
 
+    function alterarCliente($nome, $telefone, $email, $cod_cliente){
+        try{ 
+            $sql = "UPDATE CLIENTE SET nome = :nome, telefone = :telefone, email = :email WHERE cod_cliente = :cod_cliente";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":nome", $nome);
+            $stmt->bindValue(":telefone", $telefone);
+            $stmt->bindValue(":email", $email);
+            $stmt->bindValue(":cod_cliente", $cod_cliente);
+            return $stmt->execute();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
 
+    function excluirCliente($cod_cliente){
+        try{ 
+            $sql = "DELETE FROM CLIENTE WHERE cod_cliente = :cod_cliente";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":cod_cliente", $cod_cliente);
+            return $stmt->execute();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
+
+    //VEICULO
+    function consultarVeiculoID($cod_veiculo){
+        try{ 
+            $sql = "SELECT * FROM MOTORISTA WHERE cod_veiculo = :cod_veiculo";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":cod_veiculo", $cod_veiculo);
+            //Executo a consulta
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
+
+    function inserirVeiculo($placa, $modelo, $ano){
+        try{ 
+            $sql = "INSERT INTO MOTORISTA (PLACA, MODELO, ANO)VALUES (:placa, :modelo, :ano)";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":placa", $placa);
+            $stmt->bindValue(":modelo", $modelo);
+            $stmt->bindValue(":ano", $ano);
+            return $stmt->execute();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
+
+    function consultarVeiculo($cod_veiculo){
+        try{ 
+            $sql = "SELECT * FROM CLIENTE WHERE cod_veiculo = :cod_veiculo";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":cod_veiculo", $cod_veiculo);
+            //Executo a consulta
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
+
+    function alterarVeiculo($placa, $modelo, $ano, $cod_veiculo){
+        try{ 
+            $sql = "UPDATE CLIENTE SET placa = :placa, modelo = :modelo, ano = :ano WHERE cod_veiculo = :cod_veiculo";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":placa", $placa);
+            $stmt->bindValue(":modelo", $modelo);
+            $stmt->bindValue(":ano", $ano);
+            $stmt->bindValue(":cod_veiculo", $cod_veiculo);
+            return $stmt->execute();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
+
+    function excluirVeiculo($cod_veiculo){
+        try{ 
+            $sql = "DELETE FROM VEICULO WHERE cod_veiculo= :cod_veiculo";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":cod_veiculo", $cod_veiculo);
+            return $stmt->execute();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
+    
+    //VIAGEM
+    function consultarViagemID($cod_viagem){
+        try{ 
+            $sql = "SELECT * FROM MOTORISTA WHERE $cod_viagem = :$cod_viagem";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":$cod_viagem", $$cod_viagem);
+            //Executo a consulta
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
+
+    function inserirViagem($hora_viagem, $data_viagem, $cod_motorista, $cod_veiculo, $cod_cliente){
+        try{ 
+            $sql = "INSERT INTO VIAGEM (HORA_VIAGEM, DATA_VIAGEM, COD_VEICULO, COD_MOTORISTA, COD_CLIENTE)
+                            VALUES (:hora_viagem, :data_viagem, :cod_veiculo, cod_motorista, cod_cliente)";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":hora_viagem", $hora_viagem);
+            $stmt->bindValue(":data_viagem", $data_viagem);
+            $stmt->bindValue(":cod_veiculo", $cod_veiculo);
+            $stmt->bindValue(":cod_motorista", $cod_motorista);
+            $stmt->bindValue(":cod_cliente", $cod_cliente);  
+            return $stmt->execute();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
+
+    //Função que realiza a alteração de um produto
+    function alterarViagem($hora_viagem, $data_viagem, $cod_motorista, $cod_veiculo, $cod_cliente, $cod_viagem){
+        try{ 
+            $sql = "UPDATE VIAGEM SET hora_viagem = :hora_viagem, data_viagem = :data_viagem, cod_veiculo = :cod_veiculo, 
+                                      cod_motorista = :cod_motorista, cod_cod_cliente = :cod_cod_cliente 
+                    WHERE cod_viagem = :cod_viagem";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":hora_viagem", $hora_viagem);
+            $stmt->bindValue(":data_viagem", $data_viagem);
+            $stmt->bindValue(":cod_veiculo", $cod_veiculo);
+            $stmt->bindValue(":cod_motorista", $cod_motorista);
+            $stmt->bindValue(":cod_cliente", $cod_cliente);
+            $stmt->bindValue(":cod_viagem", $cod_viagem);                       
+            return $stmt->execute();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
+
+    //Função que realiza a exclusão de um produto
+    function excluirViagem($cod_viagem){
+        try{ 
+            $sql = "DELETE FROM viagem WHERE cod_viagem = :cod_viagem";
+            $conexao = conectarBanco();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindValue(":cod_viagem", $cod_viagem);
+            return $stmt->execute();
+        } catch (Exception $e){
+            return 0;
+        }
+    }
+
+    function retornarViagem(){
+        try {
+            $sql = "SELECT VA.*, 
+                            M.NOME as MOTORISTA,
+                            VI.MODELO as VEICULO,
+                            C.NOME as CLIENTE
+                    FROM VIAGEM VA
+                    INNER JOIN MOTORISTA M 
+                        ON M.COD_MOTORISTA = VA.COD_MOTORISTA
+                    INNER JOIN CLIENTE C
+                        ON C.COD_CLIENTE = VA.COD_CLIENTE
+                     INNER JOIN VEICULO VI
+                        ON VI.COD_VEICULO = VA.COD_VEICULO";
+            $conexao = conectarBanco();
+            return $conexao->query($sql);
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
 
 
